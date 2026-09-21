@@ -5,11 +5,6 @@
 # Adapted from NOAA-EMC/GEODE's Dockerfile: builds gsl-lite, NCEPLIBS-bufr,
 # and bufr-query from source on a plain python base, rather than depending
 # on an unverified pre-built image
-#
-# NCEPLIBS_BUFR_REF below (v12.3.0) is close to but not identical to the
-# bufr/12.1.0 HPC module Steps 1-2 were validated against on ursa -- worth
-# a sanity check on output parity once this image actually runs the
-# pipeline, since that's the piece producing your data.
 
 FROM python:3.12
  
@@ -90,12 +85,23 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
       git+https://github.com/NOAA-EMC/emcpy.git && \
     rm -rf /tmp/bufr-monitor
  
-WORKDIR /home/${USERNAME}
-USER ${USERNAME}
+WORKDIR /workspace
  
-RUN echo 'alias ls="ls --color=auto"' >> ~/.bashrc && \
-    echo 'alias ll="ls -alF --color=auto"' >> ~/.bashrc && \
-    echo 'export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >> ~/.bashrc && \
-    echo 'git config --global --add safe.directory /workspaces/bufr-monitor' >> ~/.bashrc
+# NOTE: deliberately NOT switching to a non-root USER here. GitHub's
+# actions/checkout maintainers document this as an unsupported path
+# for job containers -- Actions' own internal file commands (used for
+# post-job cleanup, save-state, etc.) write into /__w/_temp, which is
+# host-mounted and expects the container to run as root. This bit us
+# directly: `options: --user root` at the workflow level was NOT a
+# reliable enough override in practice. The `developer` user created
+# above still exists and is used locally via devcontainer.json's
+# remoteUser -- only the image's own CI-facing default changed.
+#
+# Written to /etc/bash.bashrc (not ~/.bashrc) so it applies to any
+# user's interactive shell, root or developer alike.
+RUN echo 'alias ls="ls --color=auto"' >> /etc/bash.bashrc && \
+    echo 'alias ll="ls -alF --color=auto"' >> /etc/bash.bashrc && \
+    echo 'export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >> /etc/bash.bashrc && \
+    echo 'git config --global --add safe.directory /workspaces/bufr-monitor' >> /etc/bash.bashrc
  
 CMD ["/bin/bash"]
