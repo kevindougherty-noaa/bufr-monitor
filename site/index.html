@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CrIS Obs Monitoring POC</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    figure { margin: 2rem 0; }
+    img { max-width: 100%; border: 1px solid #ddd; }
+    figcaption { color: #555; font-size: 0.9rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>CrIS Obs Monitoring -- Proof of Concept</h1>
+  <p>Diagnostics from the CrIS BUFR ingest pipeline. Updated manually for now; will move to hourly via GitHub Actions.</p>
+
+  <figure>
+    <img src="figures/coverage_latest.png" alt="CrIS coverage map, most recent cycle">
+    <figcaption>Lat/lon coverage by satellite -- most recent cycle.</figcaption>
+  </figure>
+
+  <!-- Obs-count timeseries deferred until cross-run cycle history is
+       wired up -- see run_cycle.py's docstring. Add this figure back
+       once obs_counts_timeseries.png is actually being generated:
+
+  <figure>
+    <img src="figures/obs_counts_timeseries_latest.png" alt="CrIS obs counts timeseries">
+    <figcaption>Obs counts by satellite across recent cycles.</figcaption>
+  </figure>
+  -->
+</body>
+</html>

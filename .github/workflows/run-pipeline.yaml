@@ -1,0 +1,52 @@
+name: Run CrIS pipeline and publish to Pages
+
+on:
+  workflow_dispatch: {}   # manual for now; add `schedule:` once this is proven reliable
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/bufr-monitor-dev
+
+permissions:
+  contents: read
+  packages: read    # needed to pull the (likely private) GHCR image below
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  run-and-deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.IMAGE_NAME }}:latest
+      # container image pulls happen before any step runs, so auth has
+      # to live here rather than in a docker/login-action step.
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install bufr-monitor (editable)
+        run: pip install -e .
+
+      - name: Run pipeline for latest available cycle
+        run: python scripts/run_cycle.py
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
