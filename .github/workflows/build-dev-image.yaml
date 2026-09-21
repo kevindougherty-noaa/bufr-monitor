@@ -39,3 +39,17 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
 
+      - name: Smoke test -- confirm the key imports actually work
+        run: |
+          docker run --rm ${{ env.IMAGE_NAME }}:latest python -c "
+          import bufr
+          import emcpy
+          import wxflow
+          import xarray
+          import matplotlib
+          import cartopy
+          print('bufr:', bufr.__file__)
+          print('emcpy:', emcpy.__file__)
+          print('wxflow:', wxflow.__file__)
+          print('all imports OK')
+          "
