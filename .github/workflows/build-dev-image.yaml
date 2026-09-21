@@ -1,4 +1,4 @@
-iname: Build and push bufr-monitor dev image
+name: Build and push bufr-monitor dev image
  
 on:
   push:
