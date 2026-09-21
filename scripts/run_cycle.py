@@ -23,7 +23,7 @@ SITE_FIGURES_DIR = REPO_ROOT / "site" / "figures"
 # data has landed on NOMADS. 4 hours is a starting guess; tighten or
 # loosen it based on how often this actually finds data vs. 404s once
 # this is running regularly.
-LATENCY_HOURS = 4
+LATENCY_HOURS = 7
 CYCLE_STRIDE_HOURS = 6
 
 
