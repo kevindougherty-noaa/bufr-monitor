@@ -14,7 +14,7 @@ from bufr_monitor.read import read_cris_bufr, SATELLITE_NAMES
 from bufr_monitor.plots import coverage_map
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-MAPPING_YAML = REPO_ROOT / "config" / "radiance_cris-fsr.yaml"
+MAPPING_YAML = REPO_ROOT / "config" / "radiance_cris-fsr_coverage.yaml"
 DATA_DIR = REPO_ROOT / "data"
 SITE_FIGURES_DIR = REPO_ROOT / "site" / "figures"
 
