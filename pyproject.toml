@@ -1,0 +1,23 @@
+[project]
+name = "cris-monitor"
+version = "0.1.0"
+description = "Proof-of-concept CrIS BUFR monitoring pipeline"
+requires-python = ">=3.9"
+dependencies = [
+    "requests",
+    "xarray",
+    "netCDF4",
+    "numpy",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+plot = ["emcpy"]
+dev = ["pytest", "pytest-cov"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

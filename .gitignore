@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Downloaded/generated data -- regenerated locally, not committed.
+# site/ is deliberately NOT ignored: that's the published Pages content.
+data/raw/
+data/processed/
+data/figures/
