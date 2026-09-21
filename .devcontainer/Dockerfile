@@ -4,8 +4,7 @@
 #
 # Adapted from NOAA-EMC/GEODE's Dockerfile: builds gsl-lite, NCEPLIBS-bufr,
 # and bufr-query from source on a plain python base, rather than depending
-# on an unverified pre-built image (the earlier i-jedi-based draft rested
-# on two unverified assumptions; this doesn't).
+# on an unverified pre-built image
 #
 # NCEPLIBS_BUFR_REF below (v12.3.0) is close to but not identical to the
 # bufr/12.1.0 HPC module Steps 1-2 were validated against on ursa -- worth
@@ -86,6 +85,7 @@ RUN python -m pip install --no-cache-dir --upgrade pip && \
       pybind11==3.0.1 \
       scipy \
       scikit-learn \
+      cartopy \
       git+https://github.com/NOAA-EMC/wxflow.git \
       git+https://github.com/NOAA-EMC/emcpy.git && \
     rm -rf /tmp/bufr-monitor
