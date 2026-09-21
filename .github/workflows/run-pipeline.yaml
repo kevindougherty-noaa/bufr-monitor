@@ -3,9 +3,6 @@ name: Run CrIS pipeline and publish to Pages
 on:
   workflow_dispatch: {}   # manual for now; add `schedule:` once this is proven reliable
 
-env:
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/bufr-monitor-dev
-
 permissions:
   contents: read
   packages: read    # needed to pull the (likely private) GHCR image below
@@ -20,7 +17,9 @@ jobs:
   run-and-deploy:
     runs-on: ubuntu-latest
     container:
-      image: ${{ env.IMAGE_NAME }}:latest
+      # env context isn't available here -- github context is, so
+      # inline the image name directly rather than referencing env.
+      image: ghcr.io/${{ github.repository_owner }}/bufr-monitor-dev:latest
       # container image pulls happen before any step runs, so auth has
       # to live here rather than in a docker/login-action step.
       credentials:
