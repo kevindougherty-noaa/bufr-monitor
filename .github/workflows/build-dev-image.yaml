@@ -7,7 +7,7 @@ on:
       - ".devcontainer/**"
       - "pyproject.toml"
       - "src/**"
-      - ".github/workflows/build-dev-image.yml"
+      - ".github/workflows/build-dev-image.yaml"
   workflow_dispatch: {}   # manual rebuild button
  
 env:
