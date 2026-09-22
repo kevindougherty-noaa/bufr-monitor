@@ -48,7 +48,7 @@ def main() -> None:
     coverage_map(
         datasets,
         cycle=cycle_label,
-        output_path=SITE_FIGURES_DIR / f"cris_coverage_{cycle_label}.png",
+        output_path=SITE_FIGURES_DIR / f"cris_coverage_latest.png",
         labels=SATELLITE_NAMES,
     )
     print("Coverage map written.")
