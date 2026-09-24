@@ -104,9 +104,9 @@ def coverage_map(
     plot1.add_map_features(["coastline"])
     plot1.add_xlabel(xlabel="longitude")
     plot1.add_ylabel(ylabel="latitude")
-    plot1.add_title(label=f"CrIS Coverage -- {cycle}", loc="center", fontsize=14)
+    plot1.add_title(label=f"CrIS Coverage\n{cycle}", loc="center", fontsize=12)
     plot1.add_legend(loc="lower left")
-    plot1.add_stats_dict(stats_dict={"nobs": total_obs}, yloc=-0.15)
+    plot1.add_stats_dict(stats_dict={"nobs": total_obs}, yloc=-0.25)
 
     fig = CreateFigure()
     fig.plot_list = [plot1]
